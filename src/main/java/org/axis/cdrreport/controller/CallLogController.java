@@ -396,7 +396,7 @@ public class CallLogController {
         try{
 
             String myDriver = "com.mysql.cj.jdbc.Driver";
-            String myUrl = "jdbc:mysql://localhost/asterisk";
+            String myUrl = "jdbc:mysql://35.158.195.143/asterisk";
             Class.forName(myDriver);
             conn = DriverManager.getConnection(myUrl, "log_user", "Axis#2020!");
 
@@ -436,7 +436,7 @@ public class CallLogController {
         try{
 
             String myDriver = "com.mysql.cj.jdbc.Driver";
-            String myUrl = "jdbc:mysql://localhost/asteriskcdrdb";
+            String myUrl = "jdbc:mysql://35.158.195.143/asteriskcdrdb";
             Class.forName(myDriver);
             conn = DriverManager.getConnection(myUrl, "log_user", "Axis#2020!");
 
