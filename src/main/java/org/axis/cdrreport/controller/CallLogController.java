@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.axis.cdrreport.model.*;
 import org.axis.cdrreport.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,8 +39,18 @@ public class CallLogController {
     @Autowired
     public GroupRepository groupRepository;
 
+    @Value("${cdrdb.host}")
+    private String cdrdbHost;
+
+    @Value("${cdrdb.username}")
+    private String cdrdbUsername;
+
+    @Value("${cdrdb.password}")
+    private String cdrdbPassword;
+
     @RequestMapping("/cdr")
     public String Cdr(@RequestBody String str){
+
 
         try{
 
@@ -396,9 +407,9 @@ public class CallLogController {
         try{
 
             String myDriver = "com.mysql.cj.jdbc.Driver";
-            String myUrl = "jdbc:mysql://35.158.195.143/asterisk";
+            String myUrl = "jdbc:mysql://"+cdrdbHost+"/asterisk";
             Class.forName(myDriver);
-            conn = DriverManager.getConnection(myUrl, "log_user", "Axis#2020!");
+            conn = DriverManager.getConnection(myUrl, cdrdbUsername, cdrdbPassword);
 
             String pk = id.split("-")[1];
 
@@ -436,9 +447,9 @@ public class CallLogController {
         try{
 
             String myDriver = "com.mysql.cj.jdbc.Driver";
-            String myUrl = "jdbc:mysql://35.158.195.143/asteriskcdrdb";
+            String myUrl = "jdbc:mysql://"+cdrdbHost+"/asteriskcdrdb";
             Class.forName(myDriver);
-            conn = DriverManager.getConnection(myUrl, "log_user", "Axis#2020!");
+            conn = DriverManager.getConnection(myUrl, cdrdbUsername, cdrdbPassword);
 
             String query = "SELECT * FROM asteriskcdrdb.cdr where linkedid=" + linkedId + " and did is not null limit 1";
 
